@@ -52,10 +52,10 @@ set guifont=DejaVu\ Sans\ Mono\ 13
 " Inverts <j> with <k> navigation
 noremap j k
 noremap k j
-noremap h [1;5D
-noremap l [1;5C
-noremap j [1;5A
-noremap k [1;5B
+" noremap h [1;5D
+" noremap l [1;5C
+" noremap j [1;5A
+" noremap k [1;5B
 
 " Activates highlight for searches
 set hlsearch 
@@ -74,7 +74,7 @@ imap <silent> <Home> <C-O><Home>
 let &colorcolumn=join(range(81,81),",")
 " Open tag in vsplit
 set previewheight=60
-nnoremap <C-]> :execute "vertical ptag " . expand("<cword>")<CR>
+" nnoremap <C-]> :execute "vertical ptag " . expand("<cword>")<CR>
 
 
 "=====================================================

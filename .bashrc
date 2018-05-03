@@ -6,6 +6,10 @@ if [[ $- != *i* ]] ; then
 	return
 fi
 
+# Use bash-completion, if available
+[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
+    . /usr/share/bash-completion/bash_completion
+
 # Adds vim as default editor
 export VISUAL=vim
 # export TERMCMD=st
@@ -191,3 +195,5 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 export RANGER_LOAD_DEFAULT_RC=FALSE
+
+# source /opt/intel/composer_xe_2013.1.117/bin/compilervars.sh intel64

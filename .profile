@@ -9,7 +9,7 @@ capscape () { setxkbmap -option caps:escape; }; export -f capscape
 archwiki () { xdg-open "https://wiki.archlinux.org/index.php?search=${1}&title=Special%3ASearch&go=Go"; }; export -f archwiki
 extip () {  wget -qO- www.icanhazip.com; }; export -f extip
 pyprof () { pycallgraph graphviz -- "${@}"; }; export -f pyprof
-genlib () { xdg-open "http://gen.lib.rus.ec/scimag/index.php?s=${@/ /%20}"; }; export -f genlib
+genlib () { xdg-open "http://gen.lib.rus.ec/scimag/index.php?s=""${@/ /%20}"; }; export -f genlib
 luckylib () { xdg-open "http://libgen.io/scimag/ads.php?doi=${@/ /%20}&downloadname="; }; export -f luckylib
 w3msearch () { w3m "https://duckduckgo.com/?q=${@/ /%20}"; }; export -f w3msearch
 weather () { curl -s wttr.in/Buenos\ Aires?0?q?T; }; export -f weather
@@ -20,3 +20,4 @@ gt () { cd $(xclip -o 2> /dev/null); }; export -f gt
 mpvyt () { mpv --ytdl-format=${1} "${2}"; }; export -f mpvyt
 muttcrypt () { mutt -F <(gpg -d /home/teseo/muttrc.gpg); }; export -f muttcrypt
 function aw () { lynx /usr/share/doc/arch-wiki/html/en/; }; export -f aw
+function prfind () { ps aux | grep "${@}"; }; export -f prfind
