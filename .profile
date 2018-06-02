@@ -17,7 +17,9 @@ vpnctl () { systemctl $1 openvpn-client@${2};}; export -f vpnctl
 #vpnserverctl () { systemctl $1 openvpn-server@argo;}; export -f vpnserverctl
 rebash () { source ~/.bashrc; source ~/.profile; }; export -f rebash
 gt () { cd $(xclip -o 2> /dev/null); }; export -f gt
-mpvyt () { mpv --ytdl-format=${1} "${2}"; }; export -f mpvyt
-muttcrypt () { mutt -F <(gpg -d /home/teseo/muttrc.gpg); }; export -f muttcrypt
+mpvyt () { mpv --ytdl-raw-options=retries=infinite --ytdl-format=${1} "${2}"; }; export -f mpvyt
+neocrypt () { neomutt -F <(gpg -d /home/teseo/muttrc.gpg); }; export -f neocrypt
 function aw () { lynx /usr/share/doc/arch-wiki/html/en/; }; export -f aw
 function prfind () { ps aux | grep "${@}"; }; export -f prfind
+xevcodes () { xev | awk -F'[ )]+' '/^KeyPress/ { a[NR+2] } NR in a { printf "%-3s %s\n", $5, $8 }'; }; export -f xevcodes
+im2eps () { convert ${1} eps2:${1%%.*}.eps;  }; export -f im2eps

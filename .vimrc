@@ -1,5 +1,7 @@
-filetype off                  " required
 set nocompatible              " be iMproved, required
+"filetype off                  " required
+filetype plugin on                  " required
+
 
 " git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 " set the runtime path to include Vundle and initialize
@@ -69,7 +71,7 @@ imap <silent> <Home> <C-O><Home>
 " Save and suspend
 :noremap <C-Z> :w<CR><C-z> 
 " End of line and enter
-:noremap s $A<CR>
+:noremap s $A<CR><Esc>
 " Colorize column 80
 let &colorcolumn=join(range(81,81),",")
 " Open tag in vsplit
@@ -154,3 +156,10 @@ let NERDTreeIgnore=['\.pyc$', '\.pyo$', '__pycache__$']     " Ignore files in NE
 let NERDTreeWinSize=40
 autocmd VimEnter * if !argc() | NERDTree | endif  " Load NERDTree only if vim is run without arguments
 nmap º :NERDTreeToggle<CR>
+
+""
+"Custom python bindings
+""
+source ~/.vim/custom_py.vim
+
+

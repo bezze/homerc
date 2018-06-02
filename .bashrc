@@ -12,9 +12,9 @@ fi
 
 # Adds vim as default editor
 export VISUAL=vim
-# export TERMCMD=st
+export TERMCMD=termite
 export EDITOR="$VISUAL"
-export BROWSER="chromium"
+export BROWSER="qutebrowser" #"chromium"
 # export MPD_HOST=$(ip -o -4 addr | grep wlp0s2f1u8 | awk '{print $4}' | grep --color=never -o -E "\w*\.\w*\.\w*\.\w*")
 # export MPD_PORT="6603"
 # export PYTHONSTARTUP=$HOME/.config/python3/pythonstartup
