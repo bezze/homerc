@@ -22,7 +22,7 @@ function handle_folder ()
     git add $localfilepath/$filename
 }
 
-list=(".vimrc" ".bashrc" ".profile" ".bash_profile" ".vim/custom_py.vim")
+list=(".vimrc" ".bashrc" ".profile" ".bash_profile" ".vim/custom_py.vim" ".config/qutebrowser/config.py")
 
 for rc in ${list[@]}
 do
