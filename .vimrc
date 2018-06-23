@@ -1,17 +1,11 @@
 set nocompatible              " be iMproved, required
 "filetype off                  " required
-filetype plugin on                  " required
-
+filetype plugin on            " required
 
 " git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 " set the runtime path to include Vundle and initialize
-" set rtp+=/home/$USER/.vim/bundle/Vundle.vim
-" call vundle#begin('/home/$USER/.vim/plugins')
-set rtp+=/home/teseo/.vim/bundle/Vundle.vim
-call vundle#begin('/home/teseo/.vim/plugins')
-
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+set rtp+=/home/teseo/.vim/bundle/Vundle.vim    " needed for vundle
+call vundle#begin('/home/teseo/.vim/bundle')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -22,20 +16,31 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'        " NerdTree git functionality
 Plugin 'tpope/vim-commentary'               "  Comment lines with gc
 Plugin 'tpope/vim-fugitive'                 " ? Git interface?
 Plugin 'tpope/vim-surround'                 " Parentheses, brackets, quotes, XML tags, and more
-" Plugin 'vim-airline/vim-airline'            " Status bar
 Plugin 'python-mode/python-mode'            " Python stuff
+Plugin 'rust-lang/rust.vim'                 " Rust stuff
 Plugin 'flazz/vim-colorschemes'             " Colorschemes
 Plugin 'christophermca/meta5'               " meta5: tronlike cholorscheme
 Plugin 'ryanoasis/vim-devicons'             " Dev Icons
 Plugin 'thaerkh/vim-indentguides'           " Visual representation of indents
-" Plugin 'rudrab/vimf90', {'for' : 'f90'}   " Fortran 90 syntax
-Plugin 'stevearc/vim-arduino'    " Arduino
+" Plugin 'rudrab/vimf90', {'for' : 'f90'}     " Fortran 90 syntax
+" Plugin 'stevearc/vim-arduino'               " Arduino
+Plugin 'cespare/vim-toml'                   " TOML syntax
+Plugin 'prabirshrestha/async.vim'           " This is needed for vim-lsp
+" Plugin 'prabirshrestha/vim-lsp'             " Language Server Protocol
+Plugin 'autozimu/LanguageClient-neovim'       " Another LSP, requires manual install
+Plugin 'Valloric/YouCompleteMe'             " Shit just got REAL
+
+Plugin 'SirVer/ultisnips'                    " Vim snippets. Track the engine.
+Plugin 'honza/vim-snippets'                  " Snippets are separated from the engine. Add this if you want them
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
+
+
 colorscheme meta5 "meta5 desert256 elflord meta5
 colorscheme OceanicNext
 "colorscheme OceanicNextNext "meta5 desert256 elflord meta5
+"
 syntax on
 filetype plugin indent on
 highlight ColorColumn ctermbg=235 guibg=#2c2d27
@@ -54,11 +59,6 @@ set guifont=DejaVu\ Sans\ Mono\ 13
 " Inverts <j> with <k> navigation
 noremap j k
 noremap k j
-" noremap h [1;5D
-" noremap l [1;5C
-" noremap j [1;5A
-" noremap k [1;5B
-
 " Activates highlight for searches
 set hlsearch 
 "Deactivates hl for searches
@@ -74,15 +74,41 @@ imap <silent> <Home> <C-O><Home>
 :noremap s $A<CR><Esc>
 " Colorize column 80
 let &colorcolumn=join(range(81,81),",")
-" Open tag in vsplit
 set previewheight=60
+" Open tag in vsplit
 " nnoremap <C-]> :execute "vertical ptag " . expand("<cword>")<CR>
 
+" Leader
+let mapleader = "\<Space>"
+
+" Enable folding
+set foldmethod=indent
+" Start unfolded
+set foldlevelstart=99
+" binds 'shift tab' to 'toggle fold'
+nnoremap <s-tab> za
+
+nnoremap <silent> <Leader>r :call mappings#cycle_numbering()<CR>
+
+nnoremap <Leader>k :tabnext<CR>
+nnoremap <Leader>j :tabprev<CR>
+nnoremap <Leader>l :tablast<CR>
+nnoremap <Leader>h :tabfirst<CR>
+nnoremap <Leader>n :tabnew<space>
+
+"=====================================================
+" YouCompleteMe Bindings
+"=====================================================
+noremap <C-a>d :YcmCompleter GetDoc<CR>
+noremap <C-a>s :YcmCompleter GoTo<CR>
+noremap <C-a>c :YcmCompleter GoToDefinition<CR>
+noremap <C-a>C :YcmCompleter GoToImplementation<CR>
 
 "=====================================================
 "" Indent Guides Settings 
 "=====================================================
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
+
 "=====================================================
 "" NERDTree settings
 "=====================================================
@@ -91,9 +117,43 @@ let NERDTreeWinSize=40
 autocmd VimEnter * if !argc() | NERDTree | endif  " Load NERDTree only if vim is run without arguments
 nmap º :NERDTreeToggle<CR>
 
+"=====================================================
+"" vim-lsp Language Server Protocol
+"=====================================================
+" Rust : needs package rustup, and installation of toolchain + RLS
+" if executable('rls')
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'rls',
+"         \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+"         \ 'whitelist': ['rust'],
+"         \ })
+" endif
+
+" " Python : needs package python-language-server
+" if executable('pyls')
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'pyls',
+"         \ 'cmd': {server_info->['pyls']},
+"         \ 'whitelist': ['python'],
+"         \ })
+" endif
+"=====================================================
+"" LanguageClient-neovim Language Server Protocol
+"=====================================================
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+    \ 'python': ['pyls'],
+    \ }
+
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+nnoremap <silent> <F3> :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> <F4> :call LanguageClient_textDocument_documentSymbol()<CR>
+
 ""
 "Custom python bindings
 ""
-source ~/.vim/custom_py.vim
-
+autocmd FileType python source ~/.vim/custom_py.vim
+autocmd FileType rust source ~/.vim/custom_rs.vim
 

@@ -18,14 +18,19 @@ config.set('content.javascript.enabled', True, 'chrome://*/*')
 # Type: Bool
 config.set('content.javascript.enabled', True, 'qute://*/*')
 
+# Set a reasonable zoom level
+config.set('zoom.default','125')
+
+# config.set('content.autoplay',False)
+
 # Bindings for normal mode
-# config.bind(';M', 'hint --rapid links spawn mpv {hint-url}')
 config.bind(';M', 'hint url spawn umpv --title=hdmi_qb {hint-url}')
-config.bind('<Ctrl+m>', 'spawn mpv {url}')
+config.bind('<Ctrl-M>', 'spawn umpv --title=hdmi_qb  {url}')
 config.bind('J', 'tab-prev')
 config.bind('K', 'tab-next')
 config.bind('j', 'scroll up')
 config.bind('k', 'scroll down')
 config.bind('<Alt+q>', 'set-cmd-text -s :quickmark-load -t')
+# config.bind('', 'set-cmd-text -s quit --save')
 # Bindings for hint mode
 # config.bind(';M', 'spawn mpv {hint-url}', mode='hint')
