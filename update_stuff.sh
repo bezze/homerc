@@ -23,7 +23,7 @@ function handle_folder ()
 }
 
 list=(".vimrc" ".bashrc" ".profile" ".bash_profile" ".vim/custom_py.vim" ".config/qutebrowser/config.py"\
-    ".config/i3/config")
+    ".config/i3/config" ".xinitrc" ".tmux.conf")
 
 for rc in ${list[@]}
 do
