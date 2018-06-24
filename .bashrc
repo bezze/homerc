@@ -17,10 +17,6 @@ export EDITOR="$VISUAL"
 export BROWSER="qutebrowser" #"chromium"
 # export MPD_HOST=$(ip -o -4 addr | grep wlp0s2f1u8 | awk '{print $4}' | grep --color=never -o -E "\w*\.\w*\.\w*\.\w*")
 # export MPD_PORT="6603"
-# export PYTHONSTARTUP=$HOME/.config/python3/pythonstartup
-#/usr/bin/firefox
-
-# xhost +local:root > /dev/null 2>&1
 
 complete -cf sudo
 
@@ -58,82 +54,16 @@ alias pdf='qpdfview'
 alias chgrp="chgrp --preserve-root"
 alias chmod="chmod --preserve-root"
 
-# export QT_SELECT=4
-
 # Enable history appending instead of overwriting.  #139609
 shopt -s histappend
 
-use_color=true #false
-
-# Set colorful PS1 only on colorful terminals.
-# dircolors --print-database uses its own built-in database
-# instead of using /etc/DIR_COLORS.  Try to use the external file
-# first to take advantage of user additions.  Use internal bash
-# globbing instead of external grep binary.
-safe_term=${TERM//[^[:alnum:]]/?}   # sanitize TERM
-match_lhs=""
-[[ -f ~/.dir_colors   ]] && match_lhs="${match_lhs}$(<~/.dir_colors)"
-[[ -f /etc/DIR_COLORS ]] && match_lhs="${match_lhs}$(</etc/DIR_COLORS)"
-[[ -z ${match_lhs}    ]] \
-	&& type -P dircolors >/dev/null \
-	&& match_lhs=$(dircolors --print-database)
-[[ $'\n'${match_lhs} == $'\n'"TERM "${safe_term}* ]] && use_color=true
-
-if ${use_color} ; then
-	if [[ ${EUID} == 0 ]] ; then
-		PS1='\[\033[01;31m\][\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '
-	else
-		PS1='\[\033[01;36m\][\[\033[01;34m\]\u@\h\[\033[01;37m\] \W\[\033[01;34m\]\[\033[01;36m\]]\$\[\033[00m\] '
-	fi
-
+if [[ ${EUID} == 0 ]] ; then
+    PS1='\[\033[01;31m\][\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '
 else
-	if [[ ${EUID} == 0 ]] ; then
-		# show root@ when we don't have colors
-		#PS1='\[\033[01;31m\][\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '
-		PS1='\u@\h \W \$ '
-	else
-		PS1='\u@\h \w \$ '
-	fi
+    PS1='\[\033[01;36m\][\[\033[01;34m\]\u@\h\[\033[01;37m\] \W\[\033[01;34m\]\[\033[01;36m\]]\$\[\033[00m\] '
 fi
 
-unset use_color safe_term match_lhs sh
-
-#
-# # ex - archive extractor
-# # usage: ex <file>
-ex ()
-{
-  if [ -f $1 ] ; then
-    case $1 in
-      *.tar.bz2)   tar xjf $1   ;;
-      *.tar.gz)    tar xzf $1   ;;
-      *.bz2)       bunzip2 $1   ;;
-      *.rar)       unrar x $1     ;;
-      *.gz)        gunzip $1    ;;
-      *.tar)       tar xf $1    ;;
-      *.tbz2)      tar xjf $1   ;;
-      *.tgz)       tar xzf $1   ;;
-      *.zip)       unzip $1     ;;
-      *.Z)         uncompress $1;;
-      *.7z)        7z x $1      ;;
-      *)           echo "'$1' cannot be extracted via ex()" ;;
-    esac
-  else
-    echo "'$1' is not a valid file"
-  fi
-}
-
-export LESS_TERMCAP_mb=$(printf '\e[01;31m') # enter blinking mode - red
-export LESS_TERMCAP_md=$(printf '\e[01;35m') # enter double-bright mode - bold, magenta
-export LESS_TERMCAP_me=$(printf '\e[0m') # turn off all appearance modes (mb, md, so, us)
-export LESS_TERMCAP_se=$(printf '\e[0m') # leave standout mode    
-export LESS_TERMCAP_so=$(printf '\e[01;33m') # enter standout mode - yellow
-export LESS_TERMCAP_ue=$(printf '\e[0m') # leave underline mode
-export LESS_TERMCAP_us=$(printf '\e[04;36m') # enter underline mode - cyan
-
 [ -r /usr/share/bash-completion/bash_completion   ] && . /usr/share/bash-completion/bash_completion
-
-# [[ -n "$DISPLAY" && "$TERM" = "xterm" ]] && export TERM=xterm-256color
 
 SCRIPTDIR=/home/teseo/Scripts
 export PATH=$PATH:$SCRIPTDIR
@@ -144,8 +74,9 @@ done
 
 # [[ $DISPLAY ]] && capscape
 
+#-------------------------------------------------------------------------------
 # Mark/Jump functions
-# ---------------------
+#-------------------------------------------------------------------------------
 export MARKPATH=$HOME/.marks
 jump ()
 {
@@ -171,10 +102,9 @@ _completemarks() {
     return 0
 }
 complete -F _completemarks jump unmark j
-# ---------------------
-
+#-------------------------------------------------------------------------------
 # Eternal bash history.
-# ---------------------
+#-------------------------------------------------------------------------------
 # Undocumented feature which sets the size to "unlimited".
 # http://stackoverflow.com/questions/9457233/unlimited-bash-history
 export HISTFILESIZE=
@@ -186,7 +116,7 @@ export HISTFILE=~/.bash_eternal_history
 # Force prompt to write history after every command.
 # http://superuser.com/questions/20900/bash-history-loss
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
-# ---------------------
+#-------------------------------------------------------------------------------
 
 # Pyenv stuff
 export PYENV_ROOT="$HOME/.pyenv"

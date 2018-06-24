@@ -45,9 +45,21 @@ let g:pymode_rope_rename_bind = '<C-c>rr'
 let g:pymode_rope_rename_module_bind = '<C-c>r1r'
 let g:pymode_rope_organize_imports_bind = '<C-c>ro'
 let g:pymode_rope_autoimport_bind = '<C-c>ra'
-let g:pymode_rope_extract_method_bind = '<C-c>rm'
-let g:pymode_rope_extract_variable_bind = '<C-c>rl'
+let g:pymode_rope_extract_method_bind = '<C-c>em'
+let g:pymode_rope_extract_variable_bind = '<C-c>ev'
 let g:pymode_rope_use_function_bind = '<C-c>ru'
+let g:pymode_rope_goto_definition_bind = '<C-c>gt'
+let g:pymode_rope_show_doc_bind = '<C-c>d'
+let g:pymode_rope_find_it_bind = '<C-c>f'
+let g:pymode_rope_inline_bind = '<C-c>i'
+let g:pymode_rope_move_bind = '<C-c>m'
+let g:pymode_rope_change_signature_bind ='<C-c>cs'
+let g:pymode_rope_generate_function_bind = '<C-c>gf'
+let g:pymode_rope_generate_package_bind = '<C-c>gp'
+let g:pymode_rope_generate_class_bind = '<C-c>gc'
+let g:pymode_rope_module_to_package_bind = ''
+let g:pymode_rope_regenerate_on_write = 0
+
 
 " documentation
 let g:pymode_doc=1
