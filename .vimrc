@@ -140,6 +140,8 @@ nmap º :NERDTreeToggle<CR>
 "=====================================================
 "" LanguageClient-neovim Language Server Protocol
 "=====================================================
+" Rust : needs package rustup, and installation of toolchain + RLS
+" Python : needs package python-language-server
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'stable', 'rls'],
     \ 'python': ['pyls'],
