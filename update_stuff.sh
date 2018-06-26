@@ -16,7 +16,7 @@ function handle_folder_files () {
     localfilepath=./"${FILEPATH%/*}"
     filename="${FILEPATH##*/}"
     [[ $slash_nmbr -gt 0 ]] && [[ ! -d $localfilepath ]] && mkdir -p $localfilepath
-    cp ~/$FILEPATH .
+    cp ~/$FILEPATH $localfilepath/$filename
     git add $localfilepath/$filename
 }
 
@@ -24,7 +24,7 @@ function handle_folder () {
     localfilepath=./"${FILEPATH%/*}"
     filename="${FILEPATH##*/}"
     [[ ! -d $localfilepath ]] && mkdir -p $localfilepath
-    cp -r ~/$FILEPATH $localfilepath/$filename
+    cp -r ~/$FILEPATH $localfilepath
     git add $FILEPATH/*
 }
 
@@ -35,7 +35,7 @@ for rc in ${list[@]}
 do
     echo "$rc"
     check_folder $rc
-    if [[ -d $FILEPATH ]]
+    if [[ -d ~/$FILEPATH ]]
     then # It's a folder
         handle_folder
     elif [ "$slash_nmbr" != "0" ]
@@ -50,5 +50,12 @@ done
 git add $0
 git status
 
-git commit -m "Auto commit, $(date)"
-
+echo "Do you want to commit?"
+read yesno
+case $yesno in
+    y|yes)
+        git commit -m "Auto commit, $(date)"
+        ;;
+    n|no)
+        ;;
+esac
