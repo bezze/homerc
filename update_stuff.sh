@@ -16,7 +16,7 @@ function handle_folder_files () {
     localfilepath=./"${FILEPATH%/*}"
     filename="${FILEPATH##*/}"
     [[ $slash_nmbr -gt 0 ]] && [[ ! -d $localfilepath ]] && mkdir -p $localfilepath
-    cp ~/$FILEPATH $localfilepath/$filename
+    cp ~/$FILEPATH .
     git add $localfilepath/$filename
 }
 
