@@ -12,7 +12,7 @@ function check_folder () {
     # fi
 }
 
-function handle_folder () {
+function handle_folder_files () {
     localfilepath=./"${FILEPATH%/*}"
     filename="${FILEPATH##*/}"
     [[ $slash_nmbr -gt 0 ]] && [[ ! -d $localfilepath ]] && mkdir -p $localfilepath

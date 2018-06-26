@@ -1,5 +1,0 @@
-#!/usr/bin/bash
-
-sink=$(pactl list sinks | head -n 1 | grep -P -o '\d')
-
-pactl set-sink-mute $sink toggle
