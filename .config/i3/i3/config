@@ -1,0 +1,318 @@
+# Attempt at Awesomizing i3 bindings
+
+# Should you change your keyboard layout some time, delete
+# this file and re-run i3-config-wizard(1).
+#
+
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+set $mod Mod4
+
+# Kill window titles, NEEDED FOR GAPS
+for_window [class="^.*"] border pixel 3
+
+gaps inner 15
+gaps outer 0
+#smart_gaps on  # '1', 'yes', 'true', 'on', 'enable', 'active'
+# smart_borders on
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+# font pango:monospace 8
+
+# This font is widely installed, provides lots of unicode glyphs, right-to-left
+# text rendering and scalability on retina/hidpi displays (thanks to pango).
+font pango:DejaVu Sans Mono 12
+
+# Before i3 v4.8, we used to recommend this one as the default:
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# The font above is very space-efficient, that is, it looks good, sharp and
+# clear in small sizes. However, its unicode glyph coverage is limited, the old
+# X core fonts rendering does not support right-to-left and this being a bitmap
+# font, it doesn’t scale on retina/hidpi displays.
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec termite
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# start dmenu (a program launcher)
+bindsym $mod+d exec dmenu_run
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# change focus
+# bindsym $mod+j focus left
+# bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+ntilde focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Control+Left focus left
+bindsym $mod+Control+Down focus down
+bindsym $mod+Control+Up focus up
+bindsym $mod+Control+Right focus right
+
+# workspace lateral movement (cycling)
+bindsym $mod+Left workspace prev
+bindsym $mod+Right workspace next
+bindsym $mod+j workspace prev
+bindsym $mod+k workspace next
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+j move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+set $wrksp1 "1: Browser"
+set $wrksp9 "9: Misc"
+set $wrksp0 "10: Comm"
+
+# workspace "hdmi1" output HDMI1
+
+# set mpc host and port
+set $mpc mpc -h 192.168.1.4 -p 6603
+
+# switch to workspace
+bindsym $mod+1 workspace $wrksp1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace $wrksp9
+bindsym $mod+0 workspace $wrksp0
+
+# Bouncing workspaces
+
+bindsym $mod+Tab workspace back_and_forth
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $wrksp1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace $wrksp9
+bindsym $mod+Shift+0 move container to workspace $wrksp0
+
+# Throw container to right/left
+bindsym $mod+Mod1+Right move container to workspace next
+bindsym $mod+Mod1+Left move container to workspace prev
+bindsym $mod+Mod1+k move container to workspace next
+bindsym $mod+Mod1+j move container to workspace prev
+
+# Custom keybindings
+bindsym $mod+b exec qutebrowser #chromium
+# Open ncmpcpp
+bindsym $mod+ccedilla exec termite -e '/usr/bin/ncmpcpp -p 6603 -h 10.8.1.1'
+# Open ranger
+bindsym $mod+y exec termite -e ranger
+# Open ranger
+bindsym $mod+m exec termite -e neomutt
+
+# reload the configuration file
+bindsym $mod+Control+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Control+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym ntilde resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Up resize grow height 10 px or 10 ppt
+        bindsym Down resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# / 106
+# * 63
+# - 82
+# 7 79
+# 8 80
+# 9 81
+# 4 83
+# 5 84
+# 6 85
+# 1 87
+# 2 88
+# 3 89
+# 0 90
+# . 91
+# + 86
+# in  104
+
+bindsym XF86AudioPrev exec $mpc prev
+bindsym XF86AudioNext exec $mpc next
+bindsym XF86AudioPlay exec $mpc toggle
+bindsym XF86AudioMute exec ~/.config/i3/mute_toggle
+bindsym XF86AudioRaiseVolume exec amixer -q sset Master 5%+
+bindsym XF86AudioLowerVolume exec amixer -q sset Master 5%-
+bindsym Control+XF86AudioRaiseVolume exec amixer -q sset Master 1%+
+bindsym Control+XF86AudioLowerVolume exec amixer -q sset Master 1%-
+bindsym XF86AudioMicMute exec pactl set-source-mute 2 toggle
+bindsym Control+p exec ~/.config/i3/hdmi_screen_toggle HDMI1
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+bindsym Control+XF86MonBrightnessUp exec xbacklight -inc 1
+bindsym Control+XF86MonBrightnessDown exec xbacklight -dec 1
+
+# 67  F1 121 XF86AudioMute
+# 68  F2 122 XF86AudioLowerVolume
+# 69  F3 123 XF86AudioRaiseVolume
+# 70  F4 198 XF86AudioMicMute
+# 71  F5 71  F5
+# 72  F6
+# 73  F7 255 NoSymbol
+# 74  F8 220 XF86WebCam
+# 133 Super_L
+# 76  F10
+# 133 Super_L
+# 95  F11 232 XF86MonBrightnessDown
+# 96  F12 233 XF86MonBrightnessUp
+# 172 XF86AudioPlay
+# 173 XF86AudioPrev
+# 171 XF86AudioNext
+
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+# status_command i3status -c ~/.config/i3/i3status
+bar {
+    position top
+    mode dock
+    output primary
+    status_command i3status-rs ~/.config/i3/config.toml
+}
+
+# Set shut down, restart and locking features
+# sleep 1 is used to avoid race conditions with suspend/hibernate
+set $Locker i3lock && sleep 1
+bindsym $mod+BackSpace mode "$mode_system"
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
+    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+    bindsym r exec  reboot #i3-msg exit &&
+    bindsym Shift+s exec poweroff
+
+    # exit system mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Screen resolution
+exec_always xrandr -s 1600x900
+
+# Wallpaper
+# exec_always feh --bg-max ~/Walpapers/kernel-card-black.png
+exec_always feh --bg-max ~/Walpapers/paisajes/meteora/meteora_4.jpg
+
+# Compositor
+exec_always compton
+
+# Some custom key remappings (.xinitrc doesnt work)
+exec_always xmodmap ~/.Xmodmap
+
+# Autolock
+exec --no-startup-id xautolock -time 10 -locker blurlock
+# xautolock -time 10 -locker "i3lock -i 'background_image.png'" &
+
+# Set floating window constraints
+# floating_minimum_size <width> x <height> # we dont need minimum
+floating_maximum_size 1080 x 720
+
+# Custom rules
+# Browser
+assign [class="Chromium"] $wrksp1
+assign [class="qutebrowser"] $wrksp1
+# Misc
+assign [class="Steam"] $wrksp9
+assign [class="leagueclientux.exe"] $wrksp9
+# Comm
+assign [class="Friends"] $wrksp0
+assign [class="Riot"] $wrksp0
+assign [class="Rambox"] $wrksp0
+
+# HDMI1
+assign [title="hdmi*"] output HDMI1
+
+# rtv custom floaters
+for_window [title="rtv_feh"] floating enable
+for_window [title="rtv_mpv"] floating enable
+
+# Set some floaters
+for_window [class="matplotlib"] floating enable
+for_window [class="Galculator"] floating enable
+for_window [title="VMD Main"] floating enable
+for_window [class="Lutris"] floating enable
+for_window [class="Eog"] floating enable
+
+bindsym $mod+x move container to output HDMI1

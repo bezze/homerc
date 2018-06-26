@@ -20,7 +20,13 @@ function handle_folder () {
     git add $localfilepath/$filename
 }
 
-# function add_folder_recursively () { } 
+function handle_folder () {
+    localfilepath=./"${FILEPATH%/*}"
+    filename="${FILEPATH##*/}"
+    [[ ! -d $localfilepath ]] && mkdir -p $localfilepath
+    cp -r ~/$FILEPATH $localfilepath/$filename
+    git add $FILEPATH/*
+}
 
 list=(".vimrc" ".bashrc" ".profile" ".bash_profile" ".vim/custom_py.vim" ".config/qutebrowser"\
     ".config/i3" ".xinitrc" ".tmux.conf")
@@ -31,10 +37,10 @@ do
     check_folder $rc
     if [[ -d $FILEPATH ]]
     then # It's a folder
-        git add $FILEPATH/*
+        handle_folder
     elif [ "$slash_nmbr" != "0" ]
     then # It's _in_ a folder
-        handle_folder # $rc
+        handle_folder_files # $rc
     else # It's in $HOME
         cp ~/$rc .
         git add "$rc"
@@ -42,5 +48,7 @@ do
 done
 
 git add $0
+git status
 
 git commit -m "Auto commit, $(date)"
+
