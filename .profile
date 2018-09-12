@@ -25,6 +25,9 @@ function prfind () { ps aux | grep "${@}"; }; export -f prfind
 xevcodes () { xev | awk -F'[ )]+' '/^KeyPress/ { a[NR+2] } NR in a { printf "%-3s %s\n", $5, $8 }'; }; export -f xevcodes
 im2eps () { convert ${1} eps2:${1%%.*}.eps;  }; export -f im2eps
 rusti () { rustup run nightly-2016-08-01 ~/.cargo/bin/rusti; }; export -f rusti
+spsyu () { sudo pacman -Syu; }; export -f spsyu
+sps () { sudo pacman -S ${1}; }; export -f sps
+pss () { pacman -Ss "${1}"; }; export -f pss
 
 # # ex - archive extractor
 # # usage: ex <file>

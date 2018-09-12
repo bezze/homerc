@@ -10,6 +10,7 @@ fi
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
     . /usr/share/bash-completion/bash_completion
 
+
 # Adds vim as default editor
 export VISUAL=vim
 export TERMCMD=termite
@@ -29,20 +30,21 @@ shopt -s checkwinsize
 shopt -s expand_aliases
 
 alias ls='ls --color=auto -h'
+alias l="ls -GghB --group-directories-first"
 alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
-alias np='vim PKGBUILD'
 alias more=less
 alias links='links duckduckgo.com'
 alias vmd='vmd -xyz'
 alias trad=translate-shell
-alias ncmpcpp-local='ncmpcpp -h 192.168.1.4 -p 6604'
-alias mpc-local='mpc -h 192.168.1.4 -p 6604'
-alias vashrc='vim ~/.bashrc'
-alias vimedit='vim ~/.vimrc'
-alias vimi3='vim ~/.config/i3/config'
-alias sctl='systemctl'
+alias v='nvim '
+alias vp='v PKGBUILD'
+alias vs='v -S Session.vim'
+alias vashrc='v ~/.bashrc'
+alias vimedit='v ~/.config/nvim/init.vim'
+alias vimi3='v ~/.config/i3/config'
+alias sctl='systemctl '
 alias rtv='rtv --enable-media'
 alias sudo='sudo '
 alias sdn='sudo shutdown now'
@@ -57,11 +59,13 @@ alias chmod="chmod --preserve-root"
 # Enable history appending instead of overwriting.  #139609
 shopt -s histappend
 
-if [[ ${EUID} == 0 ]] ; then
-    PS1='\[\033[01;31m\][\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '
-else
-    PS1='\[\033[01;36m\][\[\033[01;34m\]\u@\h\[\033[01;37m\] \W\[\033[01;34m\]\[\033[01;36m\]]\$\[\033[00m\] '
-fi
+source ~/.PS1-$USER
+# if [[ ${EUID} == 0 ]] ; then
+#     PS1='\[\033[01;31m\][\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '
+# else
+# export PS1="\[$(tput bold)\]\[$(tput setaf 4)\]┏[\[$(tput setaf 5)\]\w\[$(tput setaf 4)\]]\n┗╾{\[$(tput setaf 7)\]\u\[$(tput setaf 4)\]\[$(tput bold)\]}╼(\[$(tput setaf 7)\]\\$ \[$(tput sgr0)\]"
+#     # PS1='\[\033[01;36m\][\[\033[01;34m\]\u@\h\[\033[01;37m\] \W\[\033[01;34m\]\[\033[01;36m\]]\$\[\033[00m\] '
+# fi
 
 [ -r /usr/share/bash-completion/bash_completion   ] && . /usr/share/bash-completion/bash_completion
 
@@ -127,3 +131,6 @@ fi
 export RANGER_LOAD_DEFAULT_RC=FALSE
 
 # source /opt/intel/composer_xe_2013.1.117/bin/compilervars.sh intel64
+export PATH=$PATH:/opt/esp-open-sdk/xtensa-lx106-elf/bin
+
+source ~/Scripts/termite_colorscheme_completion

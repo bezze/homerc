@@ -20,6 +20,8 @@ config.set('content.javascript.enabled', True, 'qute://*/*')
 
 # Set a reasonable zoom level
 config.set('zoom.default','125')
+config.set('fonts.hints','bold 12pt monospace')
+# config.set('fonts.hints','bold 12pt monospace')
 
 # config.set('content.autoplay',False)
 
@@ -29,8 +31,11 @@ config.bind('<Ctrl-M>', 'spawn umpv --title=hdmi_qb  {url}')
 config.bind('J', 'tab-prev')
 config.bind('K', 'tab-next')
 config.bind('j', 'scroll up')
+config.bind('j', 'scroll up', mode='caret')
 config.bind('k', 'scroll down')
+config.bind('k', 'scroll down', mode='caret')
 config.bind('<Alt+q>', 'set-cmd-text -s :quickmark-load -t')
+config.bind('<Alt+w>', 'open-editor', mode='insert')
 # config.bind('', 'set-cmd-text -s quit --save')
 # Bindings for hint mode
 # config.bind(';M', 'spawn mpv {hint-url}', mode='hint')

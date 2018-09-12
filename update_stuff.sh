@@ -28,7 +28,7 @@ function handle_folder () {
     git add $FILEPATH/*
 }
 
-list=(".vimrc" ".bashrc" ".profile" ".bash_profile" ".vim/custom_py.vim" ".config/qutebrowser"\
+list=(".bashrc" ".profile" ".bash_profile" ".Xmodmap" ".inputrc" ".config/qutebrowser"\
     ".config/i3" ".xinitrc" ".tmux.conf")
 
 for rc in ${list[@]}

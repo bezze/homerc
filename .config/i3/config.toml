@@ -59,7 +59,7 @@ show = "both"
 
 [[block]]
 block = "pacman"
-interval = 21600
+interval = 1800
 
 [[block]]
 block = "time"

@@ -72,7 +72,7 @@ bindsym $mod+Return exec termite
 bindsym $mod+d exec dmenu_run
 bindsym $mod+b exec qutebrowser #chromium
 set $mpc mpc -h 192.168.1.4 -p 6603
-bindsym $mod+bracketleft exec termite -e '/usr/bin/ncmpcpp -p 6603 -h 10.8.1.1'
+bindsym $mod+ccedilla exec termite -e '/usr/bin/ncmpcpp -p 6603 -h 10.8.1.1'
 bindsym $mod+y exec termite -e ranger
 bindsym $mod+m exec termite -e neomutt
 mode "resize" {

@@ -1,0 +1,17 @@
+clear control
+clear mod4
+
+add control = Control_L
+add mod4 = Super_L Super_R Control_R
+
+clear lock
+keycode  66 = Escape NoSymbol Escape
+keycode   9 = Caps_Lock NoSymbol Caps_Lock
+
+! Invert [ with {
+keycode  48 = bracketleft braceleft bracketleft braceleft dead_circumflex bracketleft dead_circumflex
+keycode  51 = bracketright braceright bracketright braceright dead_grave bracketright dead_grave
+
+! Do something useful with ñ
+! keycode  47 = ntilde Ntilde ntilde Ntilde asciitilde dead_doubleacute asciitilde dead_doubleacute ntilde Ntilde asciitilde dead_doubleacute
+keycode  47 = slash ntilde slash ntilde asciitilde dead_doubleacute asciitilde dead_doubleacute ntilde Ntilde asciitilde dead_doubleacute
