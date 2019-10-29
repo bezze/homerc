@@ -1,0 +1,26 @@
+#!/bin/bash
+
+_bold () {
+    tput bold
+}
+
+c_color () {
+    tput setaf "$1"
+}
+
+c_blue () {
+    c_color 4
+}
+
+c_magenta () {
+    c_color 5
+}
+
+c_white () {
+    c_color 7
+}
+
+export PS1="\[$(_bold)\]\[$(c_blue)\]┏[\[$(c_magenta)\]\w\[$(c_blue)\]]\n┗-{\[$(c_white)\]\u\[$(c_blue)\]\[$(_bold)\]}-(\[$(c_white)\]∮ \[$(tput sgr0)\]"
+# export PS1="\[$(_bold)\]\[$(c_blue)\]┏[\[$(c_magenta)\]\w\[$(c_blue)\]]\n┗╾{\[$(c_white)\]\u\[$(c_blue)\]\[$(_bold)\]}╼(\[$(c_white)\]∮ \[$(tput sgr0)\]"
+
+# export PS1="\[\033[01;36m\][\[\033[01;34m\]\u@\h\[\033[01;37m\] \W\[\033[01;34m\]\[\033[01;36m\]]\n∮ \[\033[00m\]"
